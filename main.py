@@ -7,7 +7,7 @@ from pathlib import Path
 import g4f
 import requests
 from dotenv import load_dotenv
-from quart import Quart, jsonify, request, HTTPException
+from quart import Quart, jsonify, request, abort
 
 from gpt_chat import chat_with_gpt, update_provider_on_error
 
@@ -32,7 +32,7 @@ async def update_provider():
         await update_provider_on_error()
         return {"message": "Provider updated successfully"}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error updating provider: {str(e)}") from e
+        raise abort(500, f"Error updating provider: {str(e)}")
       
 @app.route("/webhook", methods=["GET", "POST"])
 async def webhook():
