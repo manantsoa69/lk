@@ -19,5 +19,3 @@ uvicorn
 python-dotenv
 asyncio
 
-os
-python-dotenv
