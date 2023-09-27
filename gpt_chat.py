@@ -17,7 +17,7 @@ g4f.Provider.Aichat,
 g4f.Provider.Ails,
 g4f.Provider.Aivvm,
 g4f.Provider.Bard,
-g4f.Provider.Bing,
+
 g4f.Provider.ChatBase,
 g4f.Provider.ChatgptAi,
 g4f.Provider.ChatgptLogin,
