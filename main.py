@@ -7,7 +7,7 @@ from pathlib import Path
 import g4f
 import requests
 from dotenv import load_dotenv
-from quart import Quart, jsonify, request
+from quart import Quart, jsonify, request, HTTPException
 
 from gpt_chat import chat_with_gpt, update_provider_on_error
 
@@ -23,10 +23,17 @@ VERIFY_TOKEN = os.getenv("VERIFY_TOKEN")
 
 @app.route("/")
 async def home():
+
     print("Home endpoint reached")
     return {"message": "OK"}
-
-
+@app.post("/update_provider")
+async def update_provider():
+    try:
+        await update_provider_on_error()
+        return {"message": "Provider updated successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error updating provider: {str(e)}") from e
+      
 @app.route("/webhook", methods=["GET", "POST"])
 async def webhook():
     if request.method == "GET":
@@ -41,6 +48,7 @@ async def webhook():
             for entry in data["entry"]:
                 for messaging_event in entry["messaging"]:
                     sender_id = messaging_event["sender"]["id"]
+                    print(sender_id)
                     recipient_id = messaging_event["recipient"]["id"]
                     if "message" in messaging_event:
                         message_text = messaging_event["message"]["text"]
@@ -48,19 +56,29 @@ async def webhook():
                         await handle_message(sender_id, message_text)
         return "OK"
 
-
 async def send_message(sender_id, response_text):
-    message_data = {"recipient": {"id": sender_id}, "message": {"text": response_text}}
-
-    response = requests.post(
-        f"https://graph.facebook.com/v13.0/me/messages?access_token={PAGE_ACCESS_TOKEN}",
-        json=message_data,
-    )
-
-    if response.status_code == 200:
-        print("Message sent successfully")
+    if len(response_text) > 2000:
+        chunks = [response_text[i:i + 2000] for i in range(0, len(response_text), 2000)]
     else:
-        print("Failed to send message")
+        chunks = [response_text]
+
+    for chunk in chunks:
+        message_data = {"recipient": {"id": sender_id}, "message": {"text": chunk}}
+
+        response = requests.post(
+            f"https://graph.facebook.com/v16.0/me/messages?access_token={PAGE_ACCESS_TOKEN}",
+            json=message_data,
+        )
+
+        if response.status_code == 200:
+            print("Message sent successfully")
+        else:
+            print("Failed to send message")
+
+# Example usage:
+# sender_id = "USER_ID"
+# response_text = "Your long message here..."
+# await send_message(sender_id, response_text)
 
 
 async def handle_message(sender_id, message_text):
