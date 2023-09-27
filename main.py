@@ -49,8 +49,8 @@ async def webhook():
         return "OK"
 
 
-async def send_message(sender_id, message_text):
-    message_data = {"recipient": {"id": sender_id}, "message": {"text": message_text}}
+async def send_message(sender_id, response_text):
+    message_data = {"recipient": {"id": sender_id}, "message": {"text": response_text}}
 
     response = requests.post(
         f"https://graph.facebook.com/v13.0/me/messages?access_token={PAGE_ACCESS_TOKEN}",
