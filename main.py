@@ -52,7 +52,7 @@ async def webhook():
                     recipient_id = messaging_event["recipient"]["id"]
                     if "message" in messaging_event:
                         message_text = messaging_event["message"]["text"]
-                        print(f"User's question: {message_text}")
+                       
                         await handle_message(sender_id, message_text)
         return "OK"
 
