@@ -49,7 +49,7 @@ g4f.Provider.You,
 ]
 
 # Define the default provider and GPT-3.5 Turbo model
-DEFAULT_PROVIDER = g4f.Provider.Theb
+DEFAULT_PROVIDER = g4f.Provider.AItianhu
 GPT_MODEL = None
 
 # Initialize the current provider with the default provider
