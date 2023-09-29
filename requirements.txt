@@ -18,5 +18,3 @@ fastapi
 uvicorn
 python-dotenv
 asyncio
-g4f
-
