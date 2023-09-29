@@ -4,7 +4,7 @@ import os
 import sys
 from pathlib import Path
 
-import g4f
+
 import requests
 from dotenv import load_dotenv
 from quart import Quart, jsonify, request, abort
