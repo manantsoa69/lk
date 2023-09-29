@@ -18,3 +18,4 @@ fastapi
 uvicorn
 python-dotenv
 asyncio
+nest-asyncio
