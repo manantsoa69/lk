@@ -19,4 +19,5 @@ uvicorn
 python-dotenv
 asyncio
 nest-asyncio
-g4f==0.1.4.0
+g4f==0.1.4.5
+colorama
