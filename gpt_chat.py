@@ -17,7 +17,17 @@ g4f.Provider.AItianhu,
 g4f.Provider.Liaobots,
 g4f.Provider.Myshell,
 g4f.Provider.Acytoo,
-g4f.Provider.ChatBase,
+#g4f.Provider.ChatBase,
+g4f.Provider.Aibn,
+g4f.Provider.Aichat,
+g4f.Provider.Aivvm,
+g4f.Provider.ChatForAi,
+g4f.Provider.ChatgptDuo,
+g4f.Provider.FreeGpt,
+g4f.Provider.FreeGpt,
+g4f.Provider.Myshell,
+g4f.Provider.Vitalentum,
+g4f.Provider.Ylokh,
 ]
 
 # Define the default provider and GPT-3.5 Turbo model
