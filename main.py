@@ -9,7 +9,7 @@ import requests
 from dotenv import load_dotenv
 from quart import Quart, jsonify, request, abort
 
-from gpt_chat import chat_with_gpt, update_provider_on_error
+#from gpt_chat import chat_with_gpt
 
 # Load environment variables from the .env file
 load_dotenv()
@@ -27,13 +27,7 @@ async def home():
     print("Home endpoint reached")
     return {"message": "OK"}
 @app.post("/update_provider")
-async def update_provider():
-    try:
-        await update_provider_on_error()
-        return {"message": "Provider updated successfully"}
-    except Exception as e:
-        raise abort(500, f"Error updating provider: {str(e)}")
-      
+  
 @app.route("/webhook", methods=["GET", "POST"])
 async def webhook():
     if request.method == "GET":
@@ -82,7 +76,7 @@ async def send_message(sender_id, response_text):
 
 
 async def handle_message(sender_id, message_text):
-    response_text = await chat_with_gpt(message_text)
+    response_text = "Je suis actuellement en développement, mais je vous invite à utiliser notre service sur www.facebook.com/Ahibot101."
     await send_message(sender_id, response_text)
 
 
